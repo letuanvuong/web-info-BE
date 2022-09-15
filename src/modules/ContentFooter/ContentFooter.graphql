@@ -1,0 +1,57 @@
+type Query {
+  getContentFooter(language: EnumLanguage!): ContentFooter
+}
+
+type Mutation {
+  createOrUpdateContentFooter(input: InputContentFooter!): ContentFooter
+}
+
+type ContentFooter {
+  _id: ID!
+  language: EnumLanguage
+  linkLogo: LinkImage
+  altTextLogo: String
+  description: String
+  copyRight: String
+  usefulLink: [ContentUsefulLink]
+  myAccount: [ContentMyAccount]
+  introduceImages: [LinkImage]
+  subscribeTitle: String
+  subscribeDescription: String
+
+  updatedAt: Float
+  updatedBy: UserSlim
+}
+
+input InputContentFooter {
+  language: EnumLanguage
+  linkLogo: InputLinkImage
+  altTextLogo: String
+  description: String
+  copyRight: String
+  usefulLink: [InputContentUsefulLink]
+  myAccount: [InputContentMyAccount]
+  introduceImages: [InputLinkImage]
+  subscribeTitle: String
+  subscribeDescription: String
+}
+
+type ContentUsefulLink {
+  name: String
+  link: String
+}
+
+type ContentMyAccount {
+  name: String
+  link: String
+}
+
+input InputContentUsefulLink {
+  name: String
+  link: String
+}
+
+input InputContentMyAccount {
+  name: String
+  link: String
+}

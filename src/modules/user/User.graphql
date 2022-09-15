@@ -1,0 +1,180 @@
+type Query {
+  myInfo: UserResponse
+  usersWithPaginate(
+    filterOptions: InputOptionsQueryUser
+    gridOptions: GridOption # used on grid
+  ): UsersWithPaginate
+  searchUser(keyword: String, idDefault: ID, limit: Int): [User]
+  searchUserNotHaveStaff(
+    keyword: String
+    idDefault: ID
+    limit: Int
+    isUpdate: Boolean
+  ): [User]
+
+  getUsersTypeAdmin: [User]
+}
+
+type Mutation {
+  register(
+    input: NewUserInfo!
+    isAutoActive: Boolean
+    isResponseCookie: Boolean
+    language: String
+  ): User
+  "admin create user"
+  createUser(input: NewUserInfo!, language: String): User
+  # "user self update info"
+  updateStatusUsers(
+    _ids: [ID!]
+    oldStatus: EnumStatusAccount
+    newStatus: EnumStatusAccount
+  ): Boolean
+  # "admin update user info"
+  updateUserOverride(input: NeedOverrideInfo!, idUser: ID!): User
+  # "user change password self"
+  changePassword(input: ChangePasswordInput!): Boolean
+  # "renew password"
+  forgotPassword(Email: String!, language: String): Boolean
+  renewPassword(newPassword: String!, token: String!): Boolean
+  deleteUsers(idUsers: [ID!]!): Boolean
+  updateUsersOverride(input: NeedOverrideInfo!, idUsers: [ID!]!): Boolean
+  updateUser(input: NeedUpdateInfo!, idUser: ID!): User
+
+  createUserTypeAdmin(input: NewUserInfo, language: String): User
+}
+
+type User {
+  _id: ID!
+  displayName: String
+  username: String!
+  email: String
+  phoneNumber: String
+  Status: EnumStatusAccount
+  TypeAccount: EnumTypeAccount
+  lastChangePasswordAt: Float
+  note: String
+
+  employee: Staff
+
+  isLocked: Boolean
+  isDeleted: Boolean
+  isActive: Boolean
+
+  lockedAt: Float
+  lockedBy: UserSlim
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  # custom resolver
+  customer: Customer
+}
+
+type UserResponse {
+  _id: ID
+  username: String!
+  displayName: String
+  email: String
+  phoneNumber: String
+  note: String
+  Status: EnumStatusAccount
+  TypeAccount: EnumTypeAccount
+  lastChangePasswordAt: Float
+  
+  isLocked: Boolean
+  isDeleted: Boolean
+  isActive: Boolean
+
+  lockedAt: Float
+  lockedBy: UserSlim
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  customer: Customer
+}
+
+enum EnumStatusAccount {
+  NeedVerify
+  Active
+  Locked
+  Deleted
+  ProfileVerified
+  ProfileNeedReview
+  ProfileReject
+}
+
+enum EnumTypeAccount {
+  Admin
+  Customer
+}
+
+type ProfileInfo {
+  _id: ID
+  idProfile: ID
+  grantedAt: Float
+  grantedBy: UserSlim
+}
+
+type UserSlim {
+  _id: ID!
+  username: String
+  fullName: String
+}
+
+input NewUserInfo {
+  email: String!
+  password: String!
+  username: String!
+  displayName: String
+  phoneNumber: String
+  note: String
+}
+
+input NeedOverrideInfo {
+  isActive: Boolean
+  isLocked: Boolean
+  isDeleted: Boolean
+  newPassword: String
+  confirmNewPassword: String
+  password: String
+}
+
+input ChangePasswordInput {
+  currentPassword: String!
+  newPassword: String!
+    @validate(minLength: 6, message: "Must be at least 6 characters")
+  confirmPassword: String!
+    @validate(minLength: 6, message: "Must be at least 6 characters")
+}
+
+type UsersWithPaginate {
+  pageInfo: PaginationInfo
+  totalRows: Float
+  users: [User]
+}
+
+input InputOptionsQueryUser {
+  _id: [ID]
+  Status: [EnumStatusAccount]
+  TypeAccount: [EnumTypeAccount]
+  isActive: [Boolean]
+  isDeleted: [Boolean]
+  isLocked: [Boolean]
+}
+
+input NeedUpdateInfo {
+  username: String
+  idProfiles: [String]
+  note: String
+  code: String
+  email: String
+  phoneNumber: String
+}

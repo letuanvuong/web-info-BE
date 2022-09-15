@@ -1,0 +1,20 @@
+type Query {
+  getSetting: Setting
+}
+
+type Mutation {
+  updateSettingType(type: SettingType, input: Scalar): Setting
+}
+
+type Setting {
+  ecommerce: EcomSetting
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+}
+
+type EcomSetting {
+  idWarehouse: ID!
+  defaultLang: String
+}

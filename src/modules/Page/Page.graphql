@@ -1,0 +1,84 @@
+type Query {
+  getPages: [Page]
+  getPageById(_id: ID!): Page
+  getPageBySlug(slug: String!): Page
+  getPagePagination(
+    page: Int
+    limit: Int
+    search: [SearchPageInput]
+    filter: [FilterPageInput]
+    sort: [SortPageInput]
+  ): PagePagination
+  getPagePaginationTotal(
+    page: Int
+    limit: Int
+    search: [SearchPageInput]
+    filter: [FilterPageInput]
+  ): PagePaginationTotal
+}
+
+type Mutation {
+  createPage(input: PageInput!): Page
+  updatePage(_id: ID!, input: PageInput!): Page
+  deletePage(_id: ID!): Page
+}
+
+type Page {
+  _id: ID!
+
+  title: String
+  slug: String
+  content: String
+  description: String
+  keywords: String
+  isAddToMainMenu: Boolean
+  isAddToFooterMenu: Boolean
+  status: EnumPageStatus
+
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  # Resolver Field
+  url: String
+  cardinalNumber: String
+}
+
+type PagePagination {
+  currentPage: Float
+  data: [Page]
+}
+
+type PagePaginationTotal {
+  totalPages: Float
+  totalRows: Float
+  currentPage: Float
+}
+
+input PageInput {
+  title: String
+  slug: String
+  content: String
+  description: String
+  keywords: String
+  isAddToMainMenu: Boolean
+  isAddToFooterMenu: Boolean
+}
+
+input SortPageInput {
+  sort: Int
+  fieldSort: String
+}
+
+input SearchPageInput {
+  textSearch: String
+  fieldSearch: String
+}
+
+input FilterPageInput {
+  fieldFilter: String
+  values: [String]
+}

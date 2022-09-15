@@ -1,0 +1,121 @@
+type Query {
+  getEcomCategoriesPagination(
+    page: Int
+    limit: Int
+    searchInput: [EcomCategoriesSearch]
+    filterInput: [EcomCategoriesFilter]
+    sortInput: [EcomCategoriesSort]
+  ): EcomCategoriesPagination
+  getEcomCategoriesPaginationTotal(
+    page: Int
+    limit: Int
+    searchInput: [EcomCategoriesSearch]
+    filterInput: [EcomCategoriesFilter]
+  ): EcomCategoriesPaginationTotal
+  getEcomCategoriesById(id: ID!): EcomCategories
+  getEcomCategoriesBySlug(slug: String!): EcomCategories
+  getEcomCategoriesHasParent(Status: EnumCategoriesStatus): [EcomCategoriesRes]
+  searchEcomCategoriesChild(
+    keyWord: String
+    Status: EnumCategoriesStatus
+  ): [EcomCategories]
+  getEcomCategoriesTree: [EcomCategoriesTreeRes]
+}
+
+type Mutation {
+  createEcomCategories(input: EcomCategoriesInput!): EcomCategories
+  updateEcomCategories(id: ID!, input: EcomCategoriesInput!): EcomCategories
+  removeEcomCategories(ids: [ID!]): Boolean
+  updateCancelPublicCategories(id: ID!): Boolean
+}
+
+input EcomCategoriesSearch {
+  textSearch: String
+  fieldSearch: String
+}
+
+input EcomCategoriesFilter {
+  fieldFilter: String
+  values: [String]
+}
+
+input EcomCategoriesSort {
+  sort: Int
+  fieldSort: String
+}
+
+type EcomCategoriesPagination {
+  currentPage: Float
+  data: [EcomCategoriesRes]
+}
+
+type EcomCategoriesPaginationTotal {
+  totalPages: Float
+  totalRows: Float
+  currentPage: Float
+}
+
+type EcomCategories {
+  _id: ID!
+  CategoryCode: String
+  CategoryName: String
+  CategoryName_Unsigned: String
+  Slug: String
+  Color: String
+  CategoryParent_Id: String
+  Status: EnumCategoriesStatus
+  isActive: Boolean
+  isDeleted: Boolean
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  ##
+  CategoryParent: EcomCategoriesRes
+}
+
+type EcomCategoriesRes {
+  _id: ID
+  CategoryCode: String
+  CategoryName: String
+  CategoryName_Unsigned: String
+  Slug: String
+  Color: String
+  CategoryParent_Id: String
+  CategoryParent: EcomCategoriesRes
+  Status: EnumCategoriesStatus
+  isActive: Boolean
+  isDeleted: Boolean
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+}
+
+type EcomCategoriesTreeRes {
+  _id: ID
+  CategoryName: String
+  Slug: String
+  Children: [EcomCategoriesTreeRes]
+}
+
+input EcomCategoriesInput {
+  CategoryCode: String
+  CategoryName: String
+  Color: String
+  CategoryParent_Id: String
+  Status: EnumCategoriesStatus
+  Slug: String
+  isActive: Boolean
+}
+
+enum EnumCategoriesStatus {
+  PUBLIC
+  NOTPUBLIC
+  DELETED
+}

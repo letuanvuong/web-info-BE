@@ -1,0 +1,42 @@
+type Query {
+  getContentAboutUs(language: EnumLanguage): ContentAboutUs
+}
+
+type Mutation {
+  createOrUpdateContentAboutUs(
+    language: EnumLanguage!
+    input: InputContentAboutUs!
+  ): ContentAboutUs
+}
+
+input InputContentAboutUs {
+  language: EnumLanguage
+
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+
+  Content: String
+}
+
+type ContentAboutUs {
+  _id: ID!
+  language: EnumLanguage
+
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+
+  Content: String
+
+  updatedAt: Float
+  updatedBy: UserSlim
+}

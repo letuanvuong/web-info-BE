@@ -1,0 +1,32 @@
+type Query {
+  getMapServiceProductsByService(
+    idService: ID!
+    limit: Int
+  ): [MapServiceProduct]
+  getMapServiceProducts: [MapServiceProduct]
+}
+
+type Mutation {
+  createMapServiceProduct(
+    idService: ID!
+    idsStockModel: [ID]!
+  ): [MapServiceProduct]
+  removeMapServiceProduct(idService: ID!, idsStockModel: [ID]!): Boolean
+}
+
+type MapServiceProduct {
+  _id: ID!
+
+  idService: ID
+  idStockModel: ID
+
+  service: Service
+  stockModel: StockModel
+
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+}

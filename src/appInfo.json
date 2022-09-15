@@ -1,0 +1,4 @@
+{
+  "version": "APP_VERSION",
+  "description": "this file is used for auto-updating app version when building from Dockerfile"
+}

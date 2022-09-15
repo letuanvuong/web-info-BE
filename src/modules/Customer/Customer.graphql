@@ -1,0 +1,64 @@
+type Query {
+  getCustomers: [Customer]
+  getCustomerById(_id: ID!): Customer
+}
+
+type Mutation {
+  updateCustomer(user_Id: ID!, input: InputUpdateCustomer!): Customer
+}
+
+type Customer {
+  _id: ID!
+  user_Id: String!
+  email: String
+  phoneNumber: String
+
+  avatar: String
+  fullName: String
+  unsignedFullName: String
+  gender: EnumGender
+  dateOfBirth: Float
+  address: String
+  identityCard: IdentityCard
+
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  deliveryAddress_Default: DeliveryAddress
+}
+
+input InputOptionsQueryCustomer {
+  _id: [ID]
+  user_Id: [ID]
+}
+
+type IdentityCard {
+  idNo: String
+  issuedOn: Float # ngày cấp
+  issuedBy: String # nơi cấp
+  linkImg: [String]
+}
+
+input InputUpdateCustomer {
+  avatar: String
+  fullName: String
+  email: String
+    @validate(format: "email", maxLength: 255, code: "EMAIL_NOT_VALIDATE")
+  dateOfBirth: Float
+  gender: EnumGender
+  phoneNumber: String
+  # @validate(format: "phone-number", code: "PHONE_NUMBER_NOT_VALIDATE")
+  address: String
+  identityCard: InputIdentityCard
+}
+
+input InputIdentityCard {
+  idNo: String
+  issuedOn: Float # ngày cấp
+  issuedBy: String # nơi cấp
+  linkImg: [String]
+}

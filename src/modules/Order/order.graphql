@@ -1,0 +1,127 @@
+type Query {
+  ordersWithPaginate(
+    filterOptions: InputOptionsQueryOrder
+    gridOptions: GridOption # used on grid
+  ): OrdersWithPaginate
+  getQuantityOderForType: [QuantityOrderForType]
+  getOrderInfo(idCustomer: ID, status: EnumOrderStatus): [Order]
+  getOrderById(id: ID!): Order
+}
+
+type Mutation {
+  createOrder(input: IOrder!): Boolean
+  cancelOrder(id: ID!, input: String): Boolean
+
+  # for admin
+  createOrder2(input: InputOrder!): Order
+  updateOrder2(_id: ID!, input: InputOrder): Order
+  cancelOrder2(_id: ID!, reasonCancel: String): Boolean
+  shipOrder(_id: ID!, input: String): Boolean
+  confirmOrder(id: ID!): Order
+  confirmSuccessOrder(id: ID!): Order
+  confirmFailedOrder(id: ID!, reasonFailed: String): Order
+  updateOrderStatus(
+    _ids: [ID!]!
+    oldStatus: EnumOrderStatus!
+    newStatus: EnumOrderStatus!
+  ): Boolean
+}
+
+input InputOrder {
+  idCustomer: ID
+  idStaff: ID
+  orderedAt: Float
+  estimatedDeliveryAt: Float
+  products: [InputProducts]
+  note: String
+  shippingUnit: String
+  transportFee: Float
+  infoDelivery: String
+}
+
+input InputProducts {
+  count: Int
+  idStockModel: ID
+
+  # order detail
+  note: String
+}
+
+input IOrder {
+  idCustomer: ID
+  idDeliveryAddress: ID
+  arrProduct: [IArrProDuct]
+}
+
+input IArrProDuct {
+  idStockModel: ID
+  count: Int
+}
+
+type Order {
+  _id: ID!
+  code: String
+  idCustomer: ID
+  idStaff: ID
+  idDeliveryAddress: ID
+  status: EnumOrderStatus
+  paymentMethod: EnumPaymentMethod
+  reasonCancel: String
+  orderedAt: Float
+  deliveryAt: Float
+  estimatedDeliveryAt: Float
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  customerCancelAt: Float
+  customerCancelBy: UserSlim
+  customerReasonCancel: String
+  transportFee: Float
+  note: String
+  shippingUnit: String
+  reasonFailed: String
+  failedAt: Float
+  failedBy: UserSlim
+
+  # custom resolver
+  customer: Customer
+  # staff resolver
+  staff: Staff
+  # order detail resolver
+  orderDetail: [OrderDetail]
+  deliveryAddress: DeliveryAddress
+}
+
+type OrdersWithPaginate {
+  pageInfo: PaginationInfo
+  totalRows: Float
+  orders: [Order]
+}
+
+type QuantityOrderForType {
+  quantity: Float
+  type: EnumOrderStatus
+}
+
+input InputOptionsQueryOrder {
+  _id: [ID]
+  code: [String]
+  idCustomer: [ID]
+  idDeliveryAddress: [ID]
+  status: [EnumOrderStatus]
+  paymentMethod: [EnumPaymentMethod]
+}
+
+enum EnumOrderStatus {
+  AWAIT_CONFIRMATION
+  IN_PROGRESS
+  SHIPPING
+  SUCCESS
+  FAILED
+  CANCELED
+}
+
+enum EnumPaymentMethod {
+  COD
+}

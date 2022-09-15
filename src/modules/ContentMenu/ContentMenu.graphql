@@ -1,0 +1,38 @@
+type Query {
+  getContentMenu(language: EnumLanguage!): ContentMenu
+}
+
+type Mutation {
+  createOrUpdateContentMenu(input: InputContentMenu!): ContentMenu
+}
+
+type ContentMenu {
+  _id: ID!
+  language: EnumLanguage
+  linkLogo: LinkImage
+  linkFavicon: LinkImage
+  description: String
+  listMenu: [MenuItem]
+  updatedAt: Float
+  updatedBy: UserSlim
+}
+
+type MenuItem {
+  name: String
+  link: String
+  children: [MenuItem]
+}
+
+input InputContentMenu {
+  linkLogo: InputLinkImage
+  linkFavicon: InputLinkImage
+  language: EnumLanguage
+  listMenu: [InputMenuItem]
+  description: String
+}
+
+input InputMenuItem {
+  name: String
+  link: String
+  children: [InputMenuItem]
+}

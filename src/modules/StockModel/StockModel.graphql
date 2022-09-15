@@ -1,0 +1,200 @@
+type Query {
+  getStockModels: [StockModel]
+  getStockModelById(_id: ID!): StockModel
+  getRandomStockModels(limit: Int): [StockModel]
+
+  getRelatedProducts(ecomSlug: String!, productSlug: String!): [StockModel]
+
+  getStockModelBySlugEcomCategoryPagination(
+    page: Int
+    limit: Int
+    search: [SearchStockModelInput]
+    filter: [FilterStockModelInput]
+    sort: [SortStockModelInput]
+  ): StockModelPagination
+  getStockModelBySlugEcomCategoryPaginationTotal(
+    page: Int
+    limit: Int
+    search: [SearchStockModelInput]
+    filter: [FilterStockModelInput]
+  ): StockModelPaginationTotal
+
+  getStockModelPagination(
+    page: Int
+    limit: Int
+    search: [SearchStockModelInput]
+    filter: [FilterStockModelInput]
+    sort: [SortStockModelInput]
+    idsDefault: [String]
+  ): StockModelPagination
+  getStockModelPaginationTotal(
+    page: Int
+    limit: Int
+    search: [SearchStockModelInput]
+    filter: [FilterStockModelInput]
+  ): StockModelPaginationTotal
+
+  getStockModelBySlugProduct(slug: String): StockModel
+  stockModels(filterOptions: InputOptionsQueryStockModel): [StockModel]
+}
+
+type Mutation {
+  createStockModel(
+    input: StockModelInput!
+    idsStockModelRelated: [ID]
+  ): StockModel
+  updateStockModel(
+    _id: String!
+    input: StockModelInput!
+    idsStockModelRelated: [ID]
+  ): StockModel
+  deleteStockModel(_id: String!): StockModel
+  importFileStockModel(input: [StockModelInput!]!): Boolean
+}
+
+input StockModelInput {
+  code: String
+  name: String
+  unsignName: String
+
+  unit: StockModelUnitInput
+  prices: [StockModelPriceInput]
+
+  # E-Commerce
+  isEcommerce: Boolean
+  allowGuest: Boolean
+  idEcomCategory: String
+  ecomStatus: EnumStockModelStatus
+  ecomImages: [StockModelImageInput]
+  ecomSlug: String
+  ecomDescription: String
+  ecomShortDescription: String
+  ecomPublicAt: Float
+  ecomTags: [EnumEcomStockModelTag]
+
+  # webinfo
+  upc: String
+  sku: String
+}
+
+input StockModelUnitInput {
+  name: [String]
+  factor: [Float]
+  realFactor: [Float]
+  sumFactor: Float
+}
+
+input StockModelImageInput {
+  linkImage: LinkImageInput
+  altTextImage: String
+}
+
+input LinkImageInput {
+  url: String
+  fileName: String
+  type: TypeImage
+}
+
+input StockModelPriceInput {
+  idPriceType: ID!
+  price: [Float]!
+}
+
+type StockModel {
+  _id: ID
+  code: String
+  name: String
+  unsignName: String
+
+  unit: StockModelUnit
+  prices: [StockModelPrice]
+
+  isActive: Boolean
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+
+  # E-Commerce
+  isEcommerce: Boolean
+  allowGuest: Boolean
+  idEcomCategory: String
+  ecomStatus: EnumStockModelStatus
+  ecomImages: [StockModelImage]
+  ecomSlug: String
+  ecomDescription: String
+  ecomShortDescription: String
+  ecomPublicAt: Float
+  ecomTags: [EnumEcomStockModelTag]
+
+  # webinfo
+  upc: String
+  sku: String
+
+  # Resolver Field
+  ecomCategory: EcomCategories
+  totalOrderDetail: Float
+}
+
+type StockModelPagination {
+  currentPage: Float
+  data: [StockModel]
+}
+
+type StockModelPaginationTotal {
+  totalPages: Float
+  totalRows: Float
+  currentPage: Float
+}
+
+type StockModelImage {
+  linkImage: LinkImage
+  altTextImage: String
+}
+
+type StockModelPrice {
+  idPriceType: ID!
+  price: [Float]!
+}
+
+type StockModelUnit {
+  name: [String]
+  factor: [Float]
+  realFactor: [Float]
+  sumFactor: Float
+}
+
+enum EnumStockModelStatus {
+  NotPublic
+  Public
+}
+
+enum EnumEcomStockModelTag {
+  New
+  Hot
+}
+# unitPrice
+input SortStockModelInput {
+  sort: Int
+  fieldSort: String
+}
+# unsignName
+input SearchStockModelInput {
+  textSearch: String
+  fieldSearch: String
+}
+# categorySlug
+input FilterStockModelInput {
+  fieldFilter: String
+  values: [String]
+}
+
+input InputOptionsQueryStockModel {
+  _id: [ID]
+  code: [String]
+  isEcommerce: [Boolean]
+  idEcomCategory: [ID]
+  ecomStatus: [EnumStockModelStatus]
+  ecomSlug: [String]
+  isActive: [Boolean]
+}

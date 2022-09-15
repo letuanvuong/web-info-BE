@@ -1,0 +1,85 @@
+type Query {
+  getContentContact(language: EnumLanguage!): ContentContact
+}
+
+type Mutation {
+  createOrUpdateContentContact(input: InputContentContact!): ContentContact
+}
+
+type ContentContact {
+  _id: ID!
+  language: EnumLanguage
+  ourAddress: [OurAddress]
+  ourPhone: String
+  ourMailBox: String
+  detailAddress: [String]
+  googleAddress: String
+  googleFrame: String
+  phoneNumber: String
+  introduce: String
+  hotline: String
+  email: String
+  socials: [SocialItem]
+
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+
+  updatedAt: Float
+  updatedBy: UserSlim
+}
+
+input InputContentContact {
+  language: EnumLanguage
+  ourAddress: [OurAddressInput]
+  ourPhone: String
+  ourMailBox: String
+  detailAddress: [String]
+  googleAddress: String
+  googleFrame: String
+  phoneNumber: String
+  introduce: String
+  hotline: String
+  email: String
+  socials: [SocialItemInput]
+
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+}
+
+input SocialItemInput {
+  title: String
+  iconNameHeader: String
+  iconNameFooter: String
+  link: String
+}
+
+type SocialItem {
+  title: String
+  iconNameHeader: String
+  iconNameFooter: String
+  link: String
+}
+
+input OurAddressInput {
+  address: String
+  googleAddress: String
+  googleFrameAddress: String
+}
+
+type OurAddress {
+  address: String
+  googleAddress: String
+  googleFrameAddress: String
+}
+
+

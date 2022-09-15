@@ -1,0 +1,304 @@
+type Query {
+  getContentHomePage(language: EnumLanguage!): ContentHomePage
+}
+
+type Mutation {
+  createOrUpdateContentHomePage(input: InputContentHomePage!): ContentHomePage
+
+  # stock model
+  createLatestProductById(idStockModel: ID!): StockModel
+  deleteLatestProductById(idStockModel: ID!): StockModel
+}
+
+type ContentHomePage {
+  _id: ID!
+  language: EnumLanguage
+
+  # section slider
+  sectionSlider: ContentSlider
+  # section sản phẩm mới nhất
+  sectionLatestProduct: ContentLatestProduct
+  # section banner
+  sectionBanner: ContentBanner
+
+  # section sản phẩm bán chạy nhất
+  sectionBestSellingProduct: ContentBestSellingProduct
+
+  sectionOurPartners: ContentOurPartners
+  sectionWebIntrodution: ContentWebIntrodution
+  sectionEstimonial: ContentEstimonial
+  sectionService: ContentService
+  sectionBlogNew: ContentBlogNew
+  sectionOurClient: ContentOurClient
+
+  # SEO
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  # SEO Open Graph dung hien thong tin khi share link qua mang xa hoi
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+
+  updatedAt: Float
+  updatedBy: UserSlim
+}
+
+type ContentOurClient {
+  isActive: Boolean
+  title: String
+  ourClient: [OurClient]
+}
+
+type OurClient {
+  isActive: Boolean
+  reference: String
+  avatar: LinkImage
+  fullName: String
+  profession: String
+}
+
+type ContentService {
+  isActive: Boolean
+  title: String
+  description: String
+}
+
+type ContentBlogNew {
+  isActive: Boolean
+  title: String
+  description: String
+}
+
+type ContentEstimonial {
+  isActive: Boolean
+  title: String
+  description: String
+  linkImage: LinkImage
+  nameLink: String
+  link: String
+  estimonialItems: [EstimonialItem]
+}
+
+type EstimonialItem {
+  number: Int
+  description: String
+}
+
+type ContentWebIntrodution {
+  isActive: Boolean
+  title: String
+  description: String
+  linkImage: LinkImage
+  webIntrodutionItems: [WebIntrodutionItem]
+}
+
+type WebIntrodutionItem {
+  iconName: String
+  title: String
+  description: String
+}
+
+type ContentOurPartners {
+  isActive: Boolean
+  title: String
+  imagePartner: [PartnerImage]
+}
+
+type PartnerImage {
+  isActive: Boolean
+  linkImage: LinkImage
+  altTextImage: String
+  title: String
+  link: String
+}
+
+type ContentSlider {
+  imageSlider: [SliderImage]
+  isActive: Boolean
+}
+
+type SliderImage {
+  linkImage: LinkImage
+  altTextImage: String
+  title: String
+  subTitle: String
+  nameLink: String
+  link: String
+  isActive: Boolean
+}
+
+type ContentLatestProduct {
+  title: String
+  isActive: Boolean
+}
+
+type ContentBanner {
+  imageBanner1: ImageBanner
+  imageBanner2: ImageBanner
+  imageBanner3: ImageBanner
+  isActive: Boolean
+}
+
+type ImageBanner {
+  linkImage: LinkImage
+  altTextImage: String
+  title: String
+  subTitle: String
+  nameLink: String
+  link: String
+  isActive: Boolean
+}
+
+type ContentBestSellingProduct {
+  title: String
+  isActive: Boolean
+}
+
+input InputContentHomePage {
+  language: EnumLanguage
+
+  # section slider
+  sectionSlider: ContentSliderInput
+  # section sản phẩm mới nhất
+  sectionLatestProduct: ContentLatestProductInput
+  # section banner
+  sectionBanner: ContentBannerInput
+  # section sản phẩm bán chạy nhất
+  sectionBestSellingProduct: ContentBestSellingProductInput
+
+  sectionOurPartners: ContentOurPartnersInput
+  sectionWebIntrodution: ContentWebIntrodutionInput
+  sectionEstimonial: ContentEstimonialInput
+  sectionService: ContentServiceInput
+  sectionBlogNew: ContentBlogNewInput
+  sectionOurClient: ContentOurClientInput
+
+  # SEO
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  # SEO Open Graph dung hien thong tin khi share link qua mang xa hoi
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+}
+
+input ContentOurClientInput {
+  isActive: Boolean
+  title: String
+  ourClient: [OurClientInput]
+}
+
+input OurClientInput {
+  isActive: Boolean
+  reference: String
+  avatar: InputLinkImage
+  fullName: String
+  profession: String
+}
+
+input ContentServiceInput {
+  isActive: Boolean
+  title: String
+  description: String
+}
+
+input ContentBlogNewInput {
+  isActive: Boolean
+  title: String
+  description: String
+}
+
+input ContentEstimonialInput {
+  linkImage: InputLinkImage
+  isActive: Boolean
+  title: String
+  description: String
+  nameLink: String
+  link: String
+  estimonialItems: [EstimonialItemInput]
+}
+
+input EstimonialItemInput {
+  number: Int
+  description: String
+}
+
+input ContentWebIntrodutionInput {
+  isActive: Boolean
+  title: String
+  description: String
+  linkImage: InputLinkImage
+  webIntrodutionItems: [WebIntrodutionItemInput]
+}
+
+input WebIntrodutionItemInput {
+  iconName: String
+  title: String
+  description: String
+}
+
+input ContentOurPartnersInput {
+  isActive: Boolean
+  title: String
+  imagePartner: [PartnerImageInput]
+}
+
+input PartnerImageInput {
+  isActive: Boolean
+  linkImage: InputLinkImage
+  altTextImage: String
+  title: String
+  link: String
+}
+
+input ContentSliderInput {
+  imageSlider: [SliderImageInput]
+  isActive: Boolean
+}
+
+input SliderImageInput {
+  linkImage: InputLinkImage
+  altTextImage: String
+  title: String
+  subTitle: String
+  nameLink: String
+  link: String
+  isActive: Boolean
+}
+
+input ContentLatestProductInput {
+  title: String
+  isActive: Boolean
+}
+
+input ContentBannerInput {
+  imageBanner1: ImageBannerInput
+  imageBanner2: ImageBannerInput
+  imageBanner3: ImageBannerInput
+  isActive: Boolean
+}
+
+input ImageBannerInput {
+  linkImage: InputLinkImage
+  altTextImage: String
+  title: String
+  subTitle: String
+  nameLink: String
+  link: String
+  isActive: Boolean
+}
+
+input ContentBestSellingProductInput {
+  title: String
+  isActive: Boolean
+}
+
+input InputLinkImage {
+  url: String
+  fileName: String
+  type: TypeImage
+}

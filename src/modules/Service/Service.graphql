@@ -1,0 +1,83 @@
+type Query {
+  getServices: [Service]
+  getServiceById(_id: ID!): Service
+  getServiceBySlug(slug: String!): Service
+  getServicePagination(
+    page: Int
+    limit: Int
+    search: [SearchServiceInput]
+    filter: [FilterServiceInput]
+    sort: [SortServiceInput]
+  ): ServicePagination
+  getServicePaginationTotal(
+    page: Int
+    limit: Int
+    search: [SearchServiceInput]
+    filter: [FilterServiceInput]
+  ): ServicePaginationTotal
+}
+
+type Mutation {
+  createService(input: ServiceInput!): Service
+  updateService(_id: ID!, input: ServiceInput!): Service
+  deleteService(_id: ID!): Service
+}
+
+type Service {
+  _id: ID!
+
+  title: String
+  slug: String
+  mainPhoto: LinkImage
+  sortDescription: String
+  desciption: String
+  keywords: String
+
+  isDeleted: Boolean
+
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  # Resolver Field
+  url: String
+  cardinalNumber: String
+}
+
+type ServicePagination {
+  currentPage: Float
+  data: [Service]
+}
+
+type ServicePaginationTotal {
+  totalPages: Float
+  totalRows: Float
+  currentPage: Float
+}
+
+input ServiceInput {
+  title: String
+  slug: String
+  mainPhoto: InputLinkImage
+  sortDescription: String
+  desciption: String
+  keywords: String
+}
+
+input SortServiceInput {
+  sort: Int
+  fieldSort: String
+}
+
+input SearchServiceInput {
+  textSearch: String
+  fieldSearch: String
+}
+
+input FilterServiceInput {
+  fieldFilter: String
+  values: [String]
+}

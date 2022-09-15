@@ -1,0 +1,5 @@
+input InputCreateActivationToken {
+  token: String
+  expiresAt: Float
+  User_Id: String
+}

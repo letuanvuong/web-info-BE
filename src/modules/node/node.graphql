@@ -1,0 +1,105 @@
+scalar JSON
+
+type Query {
+  getNodes: [Node]
+  getNodeById(_id: ID!): Node
+  getNodeTree: [NodeTree]
+}
+
+type Mutation {
+  createNode(newNodeInput: NodeInput!): Node
+  updateNode(_id: ID!, updateNodeInput: NodeInput!): Node
+  deleteNode(_id: ID!): Boolean
+}
+
+type Node {
+  _id: ID!
+  idParent: ID
+  idAccountingObject: ID!
+  idPlace: ID
+  code: String!
+  codeHealthFacility: String
+  name: String!
+  namePrint: String
+  codeQueue: String
+  codeSubQueue: String
+  codeCounter: String
+  codeNextQueue: String
+  codeNextSubQueue: String
+  codeEndSubQueue: String
+  codeEndCounter: String
+  phoneNumber: String
+  taxCode: String
+  detailAddress: String
+  canSale: Boolean!
+  note: String
+  isStoreForHealthInsurance: Boolean
+  isKhoTuTruc: Boolean
+  idSpecialist: String
+  # isActive: Boolean
+  # createdAt: Float
+  # createdBy: User
+  # updatedAt: Float
+  # updatedBy: User
+}
+
+enum TypeNodeEnum {
+  EXAMINE_ROOM
+  HOSPITALIZE_ROOM
+  LABORATORY_ROOM
+  TIPS_ROOM
+  RECEIVE_ROOM
+  RECOVERY_ROOM
+  ENDOSCOPIC_ROOM
+  IMAGE_ANALYSATION_ROOM
+  SURGERY_ROOM
+}
+
+input NodeInput {
+  idParent: ID
+  idAccountingObject: ID
+  idPlace: ID
+  code: String!
+  codeHealthFacility: String
+  name: String!
+  namePrint: String
+  codeQueue: String
+  codeSubQueue: String
+  codeCounter: String
+  codeNextQueue: String
+  codeNextSubQueue: String
+  codeEndSubQueue: String
+  codeEndCounter: String
+  category: ID
+  phoneNumber: String
+  taxCode: String
+  detailAddress: String
+  canSale: Boolean
+  note: String
+  isStoreForHealthInsurance: Boolean
+  isKhoTuTruc: Boolean
+  idSpecialist: String
+}
+
+type NodeTree {
+  _id: ID!
+  idParent: ID
+  name: String
+  code: String
+  title: String
+  type: TypeNodeEnum
+  subtitle: String
+  taxCode: String
+  phoneNumber: String
+  detailAddress: String
+  children: JSON
+  isChildrenNode: Boolean
+  expanded: Boolean
+  createdAt: Float
+  updatedAt: Float
+  note: String
+  isStoreForHealthInsurance: Boolean
+  isKhoTuTruc: Boolean
+  idSpecialist: String
+  canSale: Boolean
+}

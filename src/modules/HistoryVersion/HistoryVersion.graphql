@@ -1,0 +1,123 @@
+type Mutation {
+  createContentHistory( input: InputContentHistory!): ContentHistory
+  deleteContentHistory ( _id: ID! ): Boolean
+  renameVersion ( _id: ID! , name:String ! ): Boolean
+}
+type Query {
+  getContentHistory(idContent: String!, type:EnumContentHistoryType!): [ContentHistory]
+}
+type ContentHistory {
+    _id: ID!
+    version: Float 
+    type: EnumContentHistoryType
+    name:String
+
+    idPage: ID
+    dataPage: Page
+
+    idService: ID
+    dataService: Service
+
+    idBlog: ID
+    dataBlog: Blog
+
+    createdAt: Float
+    createdBy: UserSlim
+
+    updatedAt: Float
+    updatedBy: UserSlim
+
+    deleteAt: Float
+    deleteBy: UserSlim
+}
+enum EnumContentHistoryType {
+    Page
+    Service
+    Blog
+}
+
+input InputContentHistory {
+
+  type: EnumContentHistoryType!
+
+  idPage: ID
+  dataPage: PageHistoryInput
+
+  idService: ID
+  dataService: ServiceHistoryInput
+
+  idBlog: ID
+  dataBlog: BlogHistoryInput
+
+}
+input UserSlimInput {
+  _id: ID
+  username: String
+  fullName: String
+}
+
+ input PageHistoryInput  {
+  _id: ID
+
+  title: String
+  slug: String
+  content: String
+  description: String
+  keywords: String
+  isAddToMainMenu: Boolean
+  isAddToFooterMenu: Boolean
+  status: EnumPageStatus
+
+  createdAt: Float
+  createdBy: UserSlimInput
+  updatedAt: Float
+  updatedBy: UserSlimInput
+  deletedAt: Float
+  deletedBy: UserSlimInput
+}
+
+ input ServiceHistoryInput  {
+  _id: ID
+
+  title: String
+  slug: String
+  mainPhoto: InputLinkImage
+  sortDescription: String
+  desciption: String
+  keywords: String
+  isDeleted: Boolean
+
+  createdAt: Float
+  createdBy: UserSlimInput
+  updatedAt: Float
+  updatedBy: UserSlimInput
+  deletedAt: Float
+  deletedBy: UserSlimInput
+
+}
+
+ input BlogHistoryInput  {
+
+  _id: ID
+
+  title: String
+  slug: String
+  sortContent: String
+  mainPhoto: InputLinkImage
+  content: String
+  keywords: String
+  isFeatureBlog: Boolean
+
+  status: EnumBlogStatus
+  publishAt: Float
+  publishBy: UserSlimInput
+
+  createdAt: Float
+  createdBy: UserSlimInput
+  updatedAt: Float
+  updatedBy: UserSlimInput
+  deletedAt: Float
+  deletedBy: UserSlimInput
+
+}
+

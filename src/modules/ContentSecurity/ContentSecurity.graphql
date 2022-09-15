@@ -1,0 +1,42 @@
+type Query {
+  getContentSecurity(language: EnumLanguage): ContentSecurity
+}
+
+type Mutation {
+  createOrUpdateContentSecurity(
+    language: EnumLanguage!
+    input: InputContentSecurity!
+  ): ContentSecurity
+}
+
+input InputContentSecurity {
+  language: EnumLanguage
+
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+
+  Content: String
+}
+
+type ContentSecurity {
+  _id: ID!
+  language: EnumLanguage
+
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+
+  Content: String
+
+  updatedAt: Float
+  updatedBy: UserSlim
+}

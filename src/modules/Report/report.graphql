@@ -1,0 +1,24 @@
+type Query {
+  reportTotalOrder(filter: FilterReportInput): ReportTotalOrderResponse
+  reportRevenue(filter: FilterReportInput): ReportRevenueResponse
+}
+
+input FilterReportInput {
+  createdAtFrom: Float
+  createdAtTo: Float
+  # idNode: String
+}
+
+type ReportTotalOrderResponse {
+  totalQuantity: Float
+  totalOrderForType: [TotalOrderForType]
+}
+
+type TotalOrderForType {
+  quantity: Float
+  type: EnumOrderStatus
+}
+
+type ReportRevenueResponse {
+  totalRevenue: Float
+}

@@ -1,0 +1,67 @@
+type DM_DonViHanhChinh {
+  _id: ID
+  MaDonViHanhChinh: String
+  TenDonViHanhChinh: String
+  TenDayDu: String
+  TenTat: String
+  TenKhongDau: String
+  TenKhongDauDayDu: String
+  LoaiDonViHanhChinh: EnumLoaiDonViHanhChinh
+  MaDonViHanhChinhCapTren: String
+  MaDonViHanhChinhCapTrenDayDu: String
+  MacDinh: Boolean
+  isActive: Boolean
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+}
+
+type Query {
+  getAllDonViHanhChinh: [DM_DonViHanhChinh]
+  findOneDonViHanhChinh(id: ID!): DM_DonViHanhChinh
+  findDonViHanhChinh(ids: [ID]): [DM_DonViHanhChinh]
+  searchDM_DonViHanhChinh(searchString: String!, limit: Int, idDefault: ID): [DM_DonViHanhChinh]
+}
+
+type Mutation {
+  createDonViHanhChinh(
+    donViHanhChinh: NewDonViHanhChinhInput!
+  ): DM_DonViHanhChinh
+  updateDonViHanhChinh(
+    id: ID!
+    donViHanhChinh: EditDonViHanhChinhInput!
+  ): Boolean
+  deleteDonViHanhChinh(ids: [ID]): Boolean
+}
+
+input NewDonViHanhChinhInput {
+  MaDonViHanhChinh: String!
+  TenDonViHanhChinh: String!
+  TenDayDu: String!
+  TenTat: String
+  LoaiDonViHanhChinh: EnumLoaiDonViHanhChinh!
+  MaDonViHanhChinhCapTren: String!
+  MaDonViHanhChinhCapTrenDayDu: String!
+  MacDinh: Boolean
+}
+
+input EditDonViHanhChinhInput {
+  MaDonViHanhChinh: String
+  TenDonViHanhChinh: String
+  TenDayDu: String
+  TenTat: String
+  LoaiDonViHanhChinh: EnumLoaiDonViHanhChinh
+  MaDonViHanhChinhCapTren: String
+  MaDonViHanhChinhCapTrenDayDu: String
+  MacDinh: Boolean
+}
+
+enum EnumLoaiDonViHanhChinh {
+  TinhThanhPho
+  QuanHuyen
+  XaPhuong
+}
+

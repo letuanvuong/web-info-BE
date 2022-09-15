@@ -1,0 +1,23 @@
+type Mutation {
+  sendVerifyMail(email: String!): Boolean
+  verifyAccount(token: String!): Boolean
+}
+
+type VerifyToken {
+  _id: ID!
+  Token: String!
+  User_Id: String
+  Email: String
+  Phone: String
+  TypeToken: EnumTypeToken
+  used: Boolean
+  isActive: Boolean
+  isDeleted: Boolean
+  createdAt: Float
+  expiresAt: Float
+}
+
+enum EnumTypeToken {
+  EMAIL
+  PHONE
+}

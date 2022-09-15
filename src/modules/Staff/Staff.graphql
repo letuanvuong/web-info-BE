@@ -1,0 +1,153 @@
+scalar Scalar
+
+# HIS NhanVien
+type Staff {
+  _id: ID
+  DoiTuongKeToan_Id: ID
+  MaNhanVien: ID
+  TenNhanVien: ID
+  TenKhongDau: ID
+  ChuKySo: String
+  NgaySinh: Float
+  SoDienThoai: String
+  GioiTinh: EnumGender
+  DanToc_Id: ID
+  NgheNghiep_Id: ID
+  DiaChi_Id: ID
+  QuocTich_Id: ID
+  KhoaLamViec_Id: ID
+  TaiKhoan_Id: ID
+  ChucVu_Id: ID
+  ChucDanh_Id: ID
+  SoNha: String
+  CMNDHoacHoChieu: String
+  NgayVaoLam: Float
+  ChungChiNgoai: String
+  GiayPhepHanhNghe: String
+  PhanTramHoaHong: Float
+  GhiChu: String
+  PhamViDichVu_Ids: [ID]
+  TienBHXH: Float
+  TamNgung: Boolean
+
+  isActive: Boolean
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  fullAddress: String
+  TaxCode: String
+  Email: String
+  LinkAvatar: LinkImage
+  # khoaLamViec: Scalar
+  # taiKhoan: Scalar
+  # chucVu: DM_ChucVu
+  # chucDanh: DM_ChucDanh
+  # quocTich: DM_QuocGia
+  # danToc: DM_DanToc
+  # ngheNghiep: DM_NgheNghiep
+  # noiSinhSong: DM_NoiSinhSong
+}
+
+input StaffInput {
+  TenNhanVien: String
+  ChuKySo: String
+  NgaySinh: Float
+  SoDienThoai: String
+  GioiTinh: EnumGender
+  DanToc_Id: ID
+  NgheNghiep_Id: ID
+  DiaChi_Id: ID
+  QuocTich_Id: ID
+  KhoaLamViec_Id: ID
+  TaiKhoan_Id: ID
+  ChucVu_Id: ID
+  ChucDanh_Id: ID
+  SoNha: String
+  CMNDHoacHoChieu: String
+  NgayVaoLam: Float
+  ChungChiNgoai: String
+  GiayPhepHanhNghe: String
+  PhanTramHoaHong: Float
+  GhiChu: String
+  TamNgung: Boolean
+  PhamViDichVu_Ids: [ID]
+
+  TaxCode: String
+  Email: String
+  LinkAvatar: InputLinkImage
+}
+
+type Query {
+  staffs: [Staff]
+  staff(id: ID!): Staff
+  getMultipleStaff(ids: [ID!]!): [Staff]
+  searchStaff(
+    keyWord: String
+    idDefault: ID
+    limit: Int
+    MaChucVu: String
+    idDefaults: [ID]
+  ): [Staff]
+  getStaffPagination(
+    page: Int
+    limit: Int
+    searchInput: [EcomCategoriesSearch]
+    filterInput: [EcomCategoriesFilter]
+    sortInput: [EcomCategoriesSort]
+  ): StaffPagination
+  getStaffPaginationTotal(
+    page: Int
+    limit: Int
+    searchInput: [EcomCategoriesSearch]
+    filterInput: [EcomCategoriesFilter]
+  ): StaffPaginationTotal
+}
+
+type Mutation {
+  createStaff(input: StaffInput!): Boolean
+  updateStaff(id: ID!, input: StaffInput!): Boolean
+  removeStaff(ids: [ID!]!): Boolean
+}
+
+type StaffPagination {
+  currentPage: Float
+  data: [StaffRes]
+}
+
+type StaffPaginationTotal {
+  totalPages: Float
+  totalRows: Float
+  currentPage: Float
+}
+
+type StaffRes {
+  _id: ID
+  MaNhanVien: ID
+  TenNhanVien: ID
+  TenKhongDau: ID
+  NgaySinh: Float
+  SoDienThoai: String
+  GioiTinh: EnumGender
+  DiaChi_Id: ID
+  SoNha: String
+  CMNDHoacHoChieu: String
+  TamNgung: Boolean
+  TaiKhoan_Id: ID
+
+  isActive: Boolean
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  fullAddress: String
+  TaxCode: String
+  Email: String
+  LinkAvatar: LinkImage
+}

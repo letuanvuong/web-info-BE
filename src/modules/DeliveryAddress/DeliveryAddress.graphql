@@ -1,0 +1,39 @@
+type Query {
+  getDeliveryAddressesByIdCustomer(idCustomer: ID!): [DeliveryAddress]
+  getDeliveryAddress(idDeliveryAddress: String!): DeliveryAddress
+  getDefaultDeliveryAddress(idCustomer: String!): DeliveryAddress
+}
+
+type Mutation {
+  createDeliveryAddress(input: IDeliveryAddress!): DeliveryAddress
+  updateDeliveryAddress(
+    idDeliveryAddress: ID!
+    input: IDeliveryAddress!
+  ): Boolean
+  deleteDeliveryAddress(idDeliveryAddress: ID!): Boolean
+}
+
+input IDeliveryAddress {
+  idCustomer: ID!
+  fullName: String
+  companyName: String
+  phoneNumber: String
+  detailAddress: String
+  isDefault: Boolean
+  oldIsDefault: Boolean
+}
+
+type DeliveryAddress {
+  _id: ID!
+  idCustomer: ID
+  fullName: String
+  unsignedFullName: String
+  companyName: String
+  phoneNumber: String
+  detailAddress: String
+  isDefault: Boolean
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+}

@@ -1,0 +1,78 @@
+type Query {
+  getMailContacts: [MailContact]
+  getMailContactPagination(
+    page: Int
+    limit: Int
+    search: [SearchMailContactInput]
+    filter: [FilterMailContactInput]
+    sort: [SortMailContactInput]
+  ): MailContactPagination
+  getMailContactPaginationTotal(
+    page: Int
+    limit: Int
+    search: [SearchMailContactInput]
+    filter: [FilterMailContactInput]
+  ): MailContactPaginationTotal
+}
+
+type Mutation {
+  createMailContact(input: InputMailContact!): MailContact
+  deleteMailContact(_id: ID!): MailContact
+}
+
+type MailContact {
+  _id: String
+  email: String
+  phoneNumber: String
+  fullName: String
+  subject: String
+  idService: String
+  topic: EnumTopicContact
+  message: String
+  status: EnumMailContactStatus
+  createdAt: Float
+  createdBy: UserSlim
+  updateAt: Float
+  updatedBy: UserSlim
+
+  service: Service
+  # Resolver Field
+  cardinalNumber: String
+}
+
+type MailContactPagination {
+  currentPage: Float
+  data: [MailContact]
+}
+
+type MailContactPaginationTotal {
+  totalPages: Float
+  totalRows: Float
+  currentPage: Float
+}
+
+input InputMailContact {
+  email: String
+  phoneNumber: String
+  fullName: String
+  subject: String
+  idService: String
+  topic: EnumTopicContact
+  message: String
+  language: String
+}
+
+input SearchMailContactInput {
+  textSearch: String
+  fieldSearch: String
+}
+
+input FilterMailContactInput {
+  fieldFilter: String
+  values: [String]
+}
+
+input SortMailContactInput {
+  sort: Int
+  fieldSort: String
+}

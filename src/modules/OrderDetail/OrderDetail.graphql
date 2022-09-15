@@ -1,0 +1,26 @@
+type OrderDetail {
+  _id: ID!
+  idOrder: ID!
+  idStockModel: ID!
+  count: Float
+  note: String
+  quantity: [Float]
+  quantityString: String
+  isFree: Boolean
+  salePrice: [Float]
+  discountType: EnumDiscountType
+  discountValue: Float
+  total: Float
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+
+  # stock model resolve
+  stockModel: StockModel
+}
+
+enum EnumDiscountType {
+  PERCENT
+  PRICE
+}

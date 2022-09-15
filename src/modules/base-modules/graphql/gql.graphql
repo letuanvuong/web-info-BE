@@ -1,0 +1,136 @@
+scalar Any
+
+directive @validate(
+  # String validates
+  minLength: Int
+  maxLength: Int
+  startsWith: String
+  endsWith: String
+  contains: String
+  notContains: String
+  pattern: String
+
+  # Template validate byte | date-time | date | email | ipv4 | ipv6 | uri | uuid | phone-number | password
+  format: String
+
+  # Number validates
+  min: Float
+  max: Float
+  exclusiveMin: Float
+  exclusiveMax: Float
+  multipleOf: Float
+  uniqueTypeName: String
+
+  # Error message
+  message: String
+
+  # Error code
+  code: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION | ARGUMENT_DEFINITION
+
+type Query {
+  hello: String
+}
+
+# used in grid pagination
+type PaginationInfo {
+  currentPage: Int
+  sizePage: Int
+  totalPages: Int
+  totalRows: Int
+}
+
+# used in grid pagination
+input GridOption {
+  # First row requested or undefined for all rows.
+  startRow: Int
+  # Last row requested or undefined for all rows.
+  endRow: Int
+  # Columns that are currently row grouped.
+  rowGroupCols: [ColumnDetail]
+  # Columns that have aggregations on them.
+  valueCols: [ColumnDetail]
+  # What groups the user is viewing.
+  groupKeys: [String]
+  # If filtering, what the filter model is.
+  filterModel: Any
+  # If sorting, what the sort model is.
+  sortModel: [SortModel]
+  # Columns that have pivot on them.
+  pivotCols: [ColumnDetail]
+  # Defines if pivot mode is on or off.
+  pivotMode: Boolean
+}
+
+# used in grid pagination
+input SortModel {
+  colId: String
+  sort: String
+}
+
+# used in grid pagination
+input ColumnDetail {
+  id: String
+  displayName: String
+  field: Any
+  aggFunc: Any
+}
+
+enum EnumLanguage {
+  vi
+  en
+}
+
+type LinkImage {
+  url: String
+  fileName: String
+  type: TypeImage
+}
+
+enum EnumBlogStatus {
+  NotPublic
+  Public
+  Deleted
+}
+
+enum EnumSubscriberStatus {
+  OnSubscribe
+  Canceled
+}
+
+enum EnumPageStatus {
+  NotPublic
+  Public
+  Deleted
+}
+
+enum TypeImage {
+  link
+  file
+}
+
+enum SettingType {
+  His
+  Sm4
+  Auth
+  Report
+  Ecommerce
+}
+
+enum EnumGender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum EnumMailContactStatus {
+  NotRead
+  Read
+  Deleted
+}
+
+enum EnumTopicContact {
+  Sale
+  Support
+  GeneralEnquires
+}

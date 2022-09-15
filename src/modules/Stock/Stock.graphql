@@ -1,0 +1,25 @@
+type Query {
+  getStocks: [Stock]
+}
+
+type Stock {
+  _id: ID
+  idStockModel: ID
+  idStore: ID
+  code: String
+  partNumber: String
+  count: Float
+  price: [Float]
+  quantity: [Float]
+  expiration: Float
+  quantityString: String
+  isInvoice: Boolean
+  isNoStock: Boolean
+  isActive: Boolean
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  idSourceImport: ID
+  idBiddingContract: ID
+}

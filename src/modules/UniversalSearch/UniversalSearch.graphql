@@ -1,0 +1,17 @@
+
+type Query {
+  searchByType(key: String!, type: EnumTypeSearch!): SearchResultResponse
+}
+
+type SearchResultResponse {
+  type: EnumTypeSearch
+  stockModel: [StockModel]
+  blog: [Blog]
+  service: [Service]
+}
+
+enum EnumTypeSearch {
+  product
+  service
+  blog
+}

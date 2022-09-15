@@ -1,0 +1,18 @@
+type Query {
+  login(info: LoginInput!): AuthenticationInfo
+  loginAdmin(info: LoginInput!): AuthenticationInfo
+  logout: Boolean
+  logoutAdmin: Boolean
+}
+
+type AuthenticationInfo {
+  token: String!
+  userId: String!
+  Status: EnumStatusAccount
+}
+
+input LoginInput {
+  Email: String
+  Password: String!
+  Username: String
+}

@@ -1,0 +1,25 @@
+type Query {
+  getMapBlogRelatedsByBlog(idBlog: ID!, limit: Int): [MapBlogRelated]
+  getMapBlogRelateds: [MapBlogRelated]
+}
+
+type Mutation {
+  createMapBlogRelated(idBlog: ID!, idsBlogRelated: [ID]!): [MapBlogRelated]
+}
+
+type MapBlogRelated {
+  _id: ID!
+
+  idBlog: ID
+  idBlogRelated: ID
+
+  blogRelated: Blog
+  blog: Blog
+
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+}

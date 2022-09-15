@@ -1,0 +1,42 @@
+type Query {
+  getContentPurchaseInfo(language: EnumLanguage): ContentPurchaseInfo
+}
+
+type Mutation {
+  createOrUpdateContentPurchaseInfo(
+    language: EnumLanguage!
+    input: InputContentPurchaseInfo!
+  ): ContentPurchaseInfo
+}
+
+input InputContentPurchaseInfo {
+  language: EnumLanguage
+
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+
+  Content: String
+}
+
+type ContentPurchaseInfo {
+  _id: ID!
+  language: EnumLanguage
+
+  SEOTitle: String
+  SEODescription: String
+  SEOKeywords: String
+
+  SEO_OGTitle: String
+  SEO_OGDescription: String
+  SEO_OGImage: String
+
+  Content: String
+
+  updatedAt: Float
+  updatedBy: UserSlim
+}

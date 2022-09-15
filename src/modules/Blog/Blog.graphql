@@ -1,0 +1,94 @@
+type Query {
+  getBlogs: [Blog]
+  getBlogById(_id: ID!): Blog
+  getBlogBySlug(slug: String!): Blog
+  getBlogPagination(
+    page: Int
+    limit: Int
+    search: [SearchBlogInput]
+    filter: [FilterBlogInput]
+    sort: [SortBlogInput]
+    idsDefault: [String]
+  ): BlogPagination
+  getBlogPaginationTotal(
+    page: Int
+    limit: Int
+    search: [SearchBlogInput]
+    filter: [FilterBlogInput]
+  ): BlogPaginationTotal
+}
+
+type Mutation {
+  createBlog(input: BlogInput!, idsBlogRelated: [ID]): Blog
+  updateBlog(_id: ID!, input: BlogInput!, idsBlogRelated: [ID]): Blog
+  deleteBlog(_id: ID!): Blog
+  changePriorityBlog(_id: ID!): Blog
+  publicBlog(_id: ID!): Blog
+  updateFeatureBlog(_id: ID!): Blog
+  unChangePriorityMultiBlog(ids: [ID]): [Blog]
+}
+
+type Blog {
+  _id: ID!
+
+  title: String
+  slug: String
+  mainPhoto: LinkImage
+  content: String
+  sortContent: String
+  keywords: String
+  isFeatureBlog: Boolean
+
+  status: EnumBlogStatus
+  priority: Int
+  publishAt: Float
+  publishBy: UserSlim
+
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+
+  # Resolver Field
+  url: String
+  cardinalNumber: String
+}
+
+type BlogPagination {
+  currentPage: Float
+  data: [Blog]
+}
+
+type BlogPaginationTotal {
+  totalPages: Float
+  totalRows: Float
+  currentPage: Float
+}
+
+input BlogInput {
+  title: String
+  slug: String
+  sortContent: String
+  mainPhoto: InputLinkImage
+  content: String
+  keywords: String
+  isFeatureBlog: Boolean
+  priority: Int
+}
+
+input SortBlogInput {
+  sort: Int
+  fieldSort: String
+}
+
+input SearchBlogInput {
+  textSearch: String
+  fieldSearch: String
+}
+
+input FilterBlogInput {
+  fieldFilter: String
+  values: [String]
+}

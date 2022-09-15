@@ -1,0 +1,31 @@
+type Query {
+  getMapStockModelRelatedsByStockModel(
+    idStockModel: ID!
+    limit: Int
+  ): [MapStockModelRelated]
+  getMapStockModelRelateds: [MapStockModelRelated]
+}
+
+type Mutation {
+  createMapStockModelRelated(
+    idStockModel: ID!
+    idsStockModelRelated: [ID]!
+  ): [MapStockModelRelated]
+}
+
+type MapStockModelRelated {
+  _id: ID!
+
+  idStockModel: ID
+  idStockModelRelated: ID
+
+  stockModelRelated: StockModel
+  stockModel: StockModel
+
+  createdAt: Float
+  createdBy: UserSlim
+  updatedAt: Float
+  updatedBy: UserSlim
+  deletedAt: Float
+  deletedBy: UserSlim
+}
